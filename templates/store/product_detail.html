@@ -38,17 +38,20 @@
 
 
     <hr>
+         {% if product_detail.variation_set.colors %}
         <div class="row">
             <div class="item-option-select">
                 <h6>Choose Color</h6>
                     <select name="color" class="form-control" required>
 										<option value="" disabled selected>Select</option>
-										{% for i in product_detail.variation_set.colors %}
+                                        {% for i in product_detail.variation_set.colors %}
 										<option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
 										{% endfor %}
-									</select>
+                    </select>
             </div>
         </div> <!-- row.// -->
+         {% endif %}
+        {% if product_detail.variation_set.colors %}
         <div class="row">
             <div class="item-option-select">
                 <h6>Select Size</h6>
@@ -60,16 +63,13 @@
 									</select>
             </div>
         </div> <!-- row.// -->
+        {% endif %}
         <hr>
-        {% if product_detail.stock <= 0 %}
-        <h5 class="text-danger">Out Of Stock</h5>
-        {% else %}
-        {% if is_cart %}
-        <a href="{% url 'add_cart' product_detail.id %}" class="btn  btn-primary"> <span class="text">View Cart</span> <i class="fas fa-eye"></i>  </a>
-        {% else %}
-        <button type="submit" class="btn  btn-primary"> <span class="text">Add to Cart</span> <i class="fa fa-shopping-cart"></i> </button>
-        {% endif %}
-        {% endif %}
+                            {% if single_product.stock <= 0 %}
+							<h5 class="text-danger">Out of Stock</h5>
+							{% else %}
+							<button type="submit" class="btn  btn-primary"> <span class="text">Add to Cart</span> <i class="fa fa-shopping-cart"></i> </button>
+							{% endif %}
     </article> <!-- product-info-aside .// -->
         </form>
             </main> <!-- col.// -->
