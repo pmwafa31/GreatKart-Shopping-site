@@ -16,67 +16,124 @@
     <!-- ============================ COMPONENT 1 ================================= -->
 
     <div class="row">
+
         <aside class="col-lg-6">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title mb-4">Billing Address</h4>
-        <form action="{% url 'place_order' %}" method="POST">
+          <form action="{% url 'place_order' %}" method="POST">
           {% csrf_token %}
+        <h4 class="card-title mb-4">Billing Address</h4>
+
           <div class="form-row">
             <div class="col form-group">
-              <label for="">First Name</label>
-              <input type="text" name="first_name" class="form-control" required>
+              <label>First Name</label>
+              <input type="text" name="first_name" class="form-control" id="b_firstname" required>
             </div>
             <div class="col form-group">
-              <label for="">Last Name</label>
-              <input type="text" name="last_name" class="form-control" required>
+              <label >Last Name</label>
+              <input type="text" name="last_name" class="form-control" id="b_lastname" required>
             </div>
           </div>
           <div class="form-row">
             <div class="col form-group">
-              <label for="">Email</label>
-              <input type="email" name="email" class="form-control" required>
+              <label >Email</label>
+              <input type="email" name="email" class="form-control" id="b_email" required>
             </div>
             <div class="col form-group">
-              <label for="">Phone Number</label>
-              <input type="text" name="phone" class="form-control" required>
+              <label>Phone Number</label>
+              <input type="text" name="phone" class="form-control" id="b_phonenumber" required>
             </div>
           </div>
           <div class="form-row">
             <div class="col form-group">
-              <label for="">Address Line 1</label>
-              <input type="text" name="address_line_1" class="form-control" required>
+              <label>Address Line 1</label>
+              <input type="text" name="address_line_1" class="form-control" id="b_add1" required>
             </div>
             <div class="col form-group">
-              <label for="">Address Line 2</label>
-              <input type="text" name="address_line_2" class="form-control">
+              <label>Address Line 2</label>
+              <input type="text" name="address_line_2" class="form-control" id="b_add2">
             </div>
               <div class="col form-group">
-              <label for="">Pincode</label>
-              <input type="text" name="pincode" class="form-control" required>
+              <label>Pincode</label>
+              <input type="text" name="pincode" class="form-control" id="b_pincode" required>
             </div>
           </div>
           <div class="form-row">
             <div class="col form-group">
-              <label for="">City</label>
-              <input type="text" name="city" class="form-control" required>
+              <label>City</label>
+              <input type="text" name="city" class="form-control" id="b_city" required>
             </div>
             <div class="col form-group">
-              <label for="">State</label>
-              <input type="text" name="state" class="form-control" required>
+              <label>State</label>
+              <input type="text" name="state" class="form-control" id="b_state" required>
             </div>
             <div class="col form-group">
-              <label for="">Country</label>
-              <input type="text" name="country" class="form-control" required>
+              <label>Country</label>
+              <input type="text" name="country" class="form-control" id="b_country" required>
             </div>
             </div>
             <div class="form-row">
-              <label for="">Order Note</label>
+              <label>Order Note</label>
               <textarea name="order_note" rows="2" class="form-control"></textarea>
+            </div>
+            <br>
+              <input type="checkbox" id="check"><b>Shipping address same as billing address</b>
+              <br><br>
+              <h4 class="card-title mb-4">Shipping Address</h4>
+
+          <div class="form-row">
+            <div class="col form-group">
+              <label>First Name</label>
+              <input type="text" name="s_first_name" class="form-control" id="s_firstname" required>
+            </div>
+            <div class="col form-group">
+              <label>Last Name</label>
+              <input type="text" name="s_last_name" class="form-control" id="s_lastname" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <label>Email</label>
+              <input type="email" name="s_email" class="form-control"  id="s_email" required>
+            </div>
+            <div class="col form-group">
+              <label>Phone Number</label>
+              <input type="text" name="s_phone" class="form-control" id="s_phonenumber" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <label>Address Line 1</label>
+              <input type="text" name="s_address_line_1" class="form-control" id="s_add1" required>
+            </div>
+            <div class="col form-group">
+              <label>Address Line 2</label>
+              <input type="text" name="s_address_line_2" class="form-control" id="s_add2">
+            </div>
+              <div class="col form-group">
+              <label>Pincode</label>
+              <input type="text" name="s_pincode" class="form-control" id="s_pincode" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <label>City</label>
+              <input type="text" name="s_city" class="form-control" id="s_city" required>
+            </div>
+            <div class="col form-group">
+              <label>State</label>
+              <input type="text" name="s_state" class="form-control" id="s_state" required>
+            </div>
+            <div class="col form-group">
+              <label>Country</label>
+              <input type="text" name="s_country" class="form-control" id="s_country" required>
+            </div>
             </div>
 
 
         </div>
+
+
     </div> <!-- card.// -->
 
         </aside> <!-- col.// -->
@@ -114,7 +171,7 @@
             </td>
             <td>
                 <!-- col.// -->
-                        <label for="">{{cart_item.quantity}}</label>
+                        <label>{{cart_item.quantity}}</label>
             </td>
             <td>
                 <div class="price-wrap">
@@ -156,6 +213,39 @@
     </div> <!-- container .//  -->
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#check").click(function(){
+         if (this.checked) {
+                $("#s_firstname").val($("#b_firstname").val());
+                $("#s_lastname").val($("#b_lastname").val());
+                $("#s_email").val($("#b_email").val());
+                $("#s_phonenumber").val($("#b_phonenumber").val());
+                $("#s_add1").val($("#b_add1").val());
+                $("#s_add2").val($("#b_add2").val());
+                $("#s_pincode").val($("#b_pincode").val());
+                $("#s_city").val($("#b_city").val());
+                $("#s_state").val($("#b_state").val());
+                $("#s_country").val($("#b_country").val());
+        }
+        else {
+            $("#s_firstname").val("");
+            $("#s_lastname").val("");
+            $("#s_email").val("");
+            $("#s_phonenumber").val("");
+            $("#s_add1").val("");
+            $("#s_add2").val("");
+            $("#s_pincode").val("");
+            $("#s_city").val("");
+            $("#s_state").val("");
+            $("#s_country").val("");
+        }
+
+    });
+
+    });
+</script>
 
     {% endblock %}
 

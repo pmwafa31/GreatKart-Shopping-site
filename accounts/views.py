@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from accounts.forms import RegistrationForm, UserProfileForm, UserForm
 from cart.models import Cart, CartItem
 from cart.views import _cart_id
-from orders.models import Order, OrderProduct
+from orders.models import Order, OrderProduct, ShippingAddress
 from .models import AccountUser, UserProfile
 from django.contrib import messages, auth
 from django.http import HttpResponse
@@ -229,7 +229,8 @@ def my_orders(request):
 @login_required(login_url='login')
 def order_detail(request, order_id):
     order_detail = OrderProduct.objects.filter(order__order_number=order_id)
-    order = Order.objects.get(order_number=order_id)
+    order = Order.objects.get(order_number=order_id, is_ordered=True)
+    ship_info = ShippingAddress.objects.get(order=order)
     subtotal = 0
     for i in order_detail:
         subtotal += i.product_price * i.quantity
@@ -237,6 +238,7 @@ def order_detail(request, order_id):
     context = {
         'order_detail': order_detail,
         'order': order,
+        'ship_info': ship_info,
         'subtotal': subtotal,
     }
     return render(request, 'accounts/order_detail.html', context)

@@ -30,7 +30,7 @@
                     <div class="dropdown-menu">
                         <a href="{% url 'store' %}" class="dropdown-item">All Categories</a>
                         {% for category in lists %}
-                        <a href="{{ category.get_url }}" class="dropdown-item">{{ category.category_name }}</a>
+                        <a href="{{ category.get_url }}" class="dropdown-item">{{ category.category_name|capfirst }}</a>
                         {% endfor %}
                     </div>
       </li>

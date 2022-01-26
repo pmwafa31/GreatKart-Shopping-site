@@ -5,7 +5,7 @@ from django.core.mail import EmailMessage
 
 from cart.models import CartItem
 from orders.forms import OrderForm
-from orders.models import Order, Payment, OrderProduct
+from orders.models import Order, Payment, OrderProduct, ShippingAddress
 import datetime
 import json
 
@@ -61,9 +61,30 @@ def place_order(request):
             order_number = current_date + str(data.id)
             data.order_number = order_number
             data.save()
+
+            #Store shipping information in ShippingAddress model
             order = Order.objects.get(user=current_user, is_ordered=False, order_number=order_number)
+
+            ship_data = ShippingAddress()
+            ship_data.user = current_user
+            ship_data.order = order
+            ship_data.first_name = request.POST['s_first_name']
+            ship_data.last_name = request.POST['s_last_name']
+            ship_data.phone = request.POST['s_phone']
+            ship_data.email = request.POST['s_email']
+            ship_data.address_line_1 = request.POST['s_address_line_1']
+            ship_data.address_line_2 = request.POST['s_address_line_2']
+            ship_data.pincode = request.POST['s_pincode']
+            ship_data.country = request.POST['s_country']
+            ship_data.state = request.POST['s_state']
+            ship_data.city = request.POST['s_city']
+            ship_data.save()
+
+            ship_info = ShippingAddress.objects.get(user = current_user, order = order)
+
             context = {
                 'order': order,
+                'ship_info': ship_info,
                 'cart_items': cart_items,
                 'total': total,
                 'tax': tax,
@@ -89,6 +110,7 @@ def payments(request):
 
     order.payment = payment
     order.is_ordered = True
+    order.status ='Not Delivered'
     order.save()
 
     # Move the cart items to Order Product table
@@ -142,6 +164,7 @@ def order_complete(request):
 
     try:
         order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ship_info = ShippingAddress.objects.get(order=order)
         ordered_products = OrderProduct.objects.filter(order_id=order.id)
 
         subtotal = 0
@@ -152,6 +175,7 @@ def order_complete(request):
 
         context = {
             'order': order,
+            'ship_info': ship_info,
             'ordered_products': ordered_products,
             'order_number': order.order_number,
             'transID': payment.payment_id,

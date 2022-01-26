@@ -1,7 +1,11 @@
 from django.contrib import admin
-from orders.models import Payment, Order, OrderProduct
+from orders.models import Payment, Order, OrderProduct, ShippingAddress
+
 
 # Register your models
+class OrderProductAdmin(admin.ModelAdmin):
+    list_display = ['order', 'created_at', 'ordered']
+
 class OrderProductInline(admin.TabularInline):
     model = OrderProduct
     readonly_fields = ('payment', 'user', 'product', 'quantity', 'product_price', 'ordered')
@@ -13,7 +17,16 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ['order_number', 'first_name', 'last_name', 'phone', 'email']
     list_per_page = 20
     inlines = [OrderProductInline]
+    #readonly_fields = [field.name for field in Order._meta.fields]
 
-admin.site.register(Payment)
+class ShipAdmin(admin.ModelAdmin):
+    list_display = ['user', 'order', 'full_name', 'phone', 'email', 'city']
+
+class PaymentAdmin(admin.ModelAdmin):
+    readonly_fields = [field.name for field in Payment._meta.fields]
+
+
+admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderProduct)
+admin.site.register(ShippingAddress, ShipAdmin)
+admin.site.register(OrderProduct, OrderProductAdmin)
