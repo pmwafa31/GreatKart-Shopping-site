@@ -89,7 +89,7 @@ AUTH_USER_MODEL = 'accounts.AccountUser'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-'''if 'RDS_DB_NAME' in os.environ:
+if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -106,13 +106,13 @@ else:
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
-    }'''
-DATABASES = {
+    }
+'''DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
-    }
+    }'''
 
 
 # Password validation
